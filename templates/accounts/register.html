@@ -1,0 +1,37 @@
+{% extends 'partials/_base.html' %}
+
+{% block content %}
+
+    <section class="h-full flex items-center justify-center">
+        <div class="bg-[#394130] flex flex-col items-center p-4 rounded-xl border-2 border-stone-500 text-stone-300">
+            <h3 class="text-4xl m-2 text-center font-medium">Create your account</h3>
+            <form action="{% url 'register' %}" method="POST" class="p-4 mx-auto size-full">
+                {% csrf_token %}
+                <div class="flex flex-col">
+                    {% for field in form.visible_fields %}
+                        <label class="my-2 text-xl font-medium" for="{{ field.id_for_label }}">{{field.label}}</label>
+                        {{ field }}
+                        {% if field.errors %}
+                            <div class="text-red-500 text-sm">
+                                {{ field.errors|join:", " }}
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                    {% if form.non_field_errors %}
+                        <div class="text-red-500 text-sm">
+                            {{ form.non_field_errors|join:", " }}
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="text-sm my-2.5">
+                    <a href="{% url 'login' %}">Already have an account?</a>
+                </div>
+                 <div class="mt-5">
+                    <button type="submit" class="text-white bg-green-700 hover:bg-green-800 font-medium rounded-2xl text-sm px-5 py-2.5 text-center">Create account</button>
+                </div>
+            </form>
+        </div>
+    </section>
+
+
+{% endblock %}

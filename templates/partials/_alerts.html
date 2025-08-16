@@ -1,0 +1,17 @@
+{% if messages %}
+    <div class="my-4 w-full max-w-md">
+        {% for message in messages %}
+            <div 
+                class="
+                    p-3 mb-2 rounded-lg 
+                    {% if message.tags == 'success' %} bg-green-600 text-white 
+                    {% elif message.tags == 'error' %} bg-red-600 text-white 
+                    {% elif message.tags == 'warning' %} bg-yellow-500 text-black 
+                    {% else %} bg-gray-600 text-white {% endif %}
+                "
+            >
+                {{ message }}
+            </div>
+        {% endfor %}
+    </div>
+{% endif %}

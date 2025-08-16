@@ -1,0 +1,27 @@
+{% extends 'partials/_base.html' %}
+
+{% block content %}
+
+    <section class="h-full flex items-center justify-center">
+        <div class="bg-[#394130] flex flex-col items-center p-4 rounded-xl border-2 border-stone-500 text-stone-300">
+            <h3 class="text-4xl m-2 text-center font-medium">Login Here</h3>
+            <form action="{% url 'login' %}" method="POST" class="p-4 mx-auto size-full">
+                {% csrf_token %}
+                <div class="flex flex-col">
+                    {% for field in form.visible_fields %}
+                        <label class="my-2 text-xl font-medium" for="{{ field.id_for_label }}">{{field.label}}</label>
+                        {{ field }}
+                    {% endfor %}
+                </div>
+                <div class="text-sm my-2.5">
+                    <a href="{% url 'register' %}">Doesn't have an account?</a>
+                </div>
+                 <div class="mt-5">
+                    <button type="submit" class="text-white bg-green-700 hover:bg-green-800 font-medium rounded-2xl text-sm px-5 py-2.5 text-center">LogIn</button>
+                </div>
+            </form>
+        </div>
+    </section>
+
+
+{% endblock %}
