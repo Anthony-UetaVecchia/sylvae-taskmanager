@@ -20,10 +20,10 @@ def login(request):
 
         if user is not None:
             auth.login(request, user)
-            messages.success(request, f'{username_login} logado com sucesso!')
+            messages.success(request, f'{username_login} Logged in successfully!')
             return redirect('index')
         else:
-            messages.error(request, 'Erro ao efetuar login')
+            messages.error(request, 'Login failed. Please check your credentials.')
             return redirect('login')
         
     return render(request, 'accounts/login.html', {'form': form})
