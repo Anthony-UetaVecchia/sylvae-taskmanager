@@ -45,12 +45,6 @@ class Task(models.Model):
     updated_at=models.DateTimeField(auto_now=True)
 
     class Meta:
-        constraints=[
-            models.CheckConstraint(
-                check=Q(task_group__isnull=True) | Q(user=F('task_group__user')),
-                name='tasks_belongs_to_same_user_of_group',
-            ),
-        ]
         indexes=[
             models.Index(fields=['user','status']),
         ]

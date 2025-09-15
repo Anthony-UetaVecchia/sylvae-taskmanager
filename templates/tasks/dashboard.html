@@ -1,0 +1,41 @@
+{% extends "partials/_base.html" %}
+
+{% block content %}
+
+    <h1>Bem-vindo, {{ request.user.username }}</h1>
+
+    <h2>Criar Grupo</h2>
+    <form method="post">
+    {% csrf_token %}
+    {{ group_form.as_p }}
+    <button type="submit" name="create_group">Criar Grupo</button>
+    </form>
+
+    <h2>Criar Tarefa</h2>
+    <form method="post">
+    {% csrf_token %}
+    {{ task_form.as_p }}
+    <button type="submit" name="create_task">Criar Tarefa</button>
+    </form>
+
+    <hr>
+
+    <h2>Seus Grupos</h2>
+    {% for group in groups %}
+    <div>
+        <h3>{{ group.group_name }}</h3>
+        <ul>
+        {% for task in group.tasks.all %}
+            <li>
+            <strong>{{ task.title }}</strong> - {{ task.get_status_display }}
+            </li>
+        {% empty %}
+            <li>Sem tarefas neste grupo.</li>
+        {% endfor %}
+        </ul>
+    </div>
+    {% empty %}
+    <p>Você ainda não criou grupos.</p>
+    {% endfor %}
+
+{% endblock %}
